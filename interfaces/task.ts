@@ -14,6 +14,8 @@ export interface Task {
     id: number;
     title: string;
     description: string;
+    assignee: string; 
+    performers: string[];
     priority: TaskPriority;
     status: TaskStatus;
 }

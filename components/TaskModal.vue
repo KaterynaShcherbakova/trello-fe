@@ -6,6 +6,11 @@
                 <v-form ref="form" @submit.prevent="onSubmit" v-model="isFormValid">
                     <v-text-field v-model="formData.title" label="Title" :rules="[rules.required]" required />
                     <v-textarea v-model="formData.description" label="Description" rows="3" />
+                    <v-text-field v-model="formData.assignee" label="Assignee" :rules="[rules.required]" required />
+                    <v-combobox v-model="formData.performers" :items="availablePerformers" label="Performers"
+                        multiple :rules="[rules.required]" required />
+                    <v-select v-model="formData.status" :items="statusOptions" label="Status" :rules="[rules.required]"
+                        required />
                     <v-select v-model="formData.priority" :items="priorityOptions" label="Priority" />
                     <v-btn type="submit" :disabled="!isFormValid" color="primary" block>{{ submitButtonText }}</v-btn>
                 </v-form>
@@ -20,6 +25,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { TaskPriority } from '@/interfaces/task';
+import { TaskStatus } from '@/interfaces/task';
 
 const props = defineProps({
     visible: {
@@ -35,6 +41,9 @@ const props = defineProps({
         default: () => ({
             title: '',
             description: '',
+            assignee: '',
+            performers: [],
+            status: TaskStatus.TODO,
             priority: 'Medium',
         }),
     },
@@ -46,6 +55,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update:visible', 'submit']);
 const priorityOptions = Object.values(TaskPriority);
+const statusOptions = Object.values(TaskStatus);
+const availablePerformers = ['John Doe', 'Jane Smith', 'Bob Johnson'];
 const formData = ref({ ...props.initialData });
 
 watch(

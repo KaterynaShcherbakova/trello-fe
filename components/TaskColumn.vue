@@ -12,13 +12,15 @@
 
         <TaskModal :visible="isModalVisible" @update:visible="isModalVisible = $event"
             :title="currentTask ? 'Edit Task' : 'Add Task'" :submitButtonText="currentTask ? 'Save Changes' : 'Create'"
-            :initialData="currentTask || { title: '', description: '', priority: 'Medium' }" @submit="onSubmitTask" />
+            :initialData="currentTask || initialTaskData" @submit="onSubmitTask" />
     </v-card>
 </template>
 
 <script setup lang="ts">
 import TaskItem from '@/components/TaskItem.vue';
 import TaskModal from '@/components/TaskModal.vue';
+import { TaskPriority } from '@/interfaces/task';
+import { TaskStatus } from '@/interfaces/task';
 import { useTaskStore } from '@/store/tasks';
 import { ref, computed } from 'vue';
 
@@ -27,6 +29,15 @@ const props = defineProps({
         type: String,
         required: true,
     },
+});
+
+const initialTaskData = ref({
+    title: '',
+    description: '',
+    assignee: '',
+    performers: [],
+    status: TaskStatus.TODO,
+    priority: TaskPriority.MEDIUM,
 });
 
 const store = useTaskStore();
