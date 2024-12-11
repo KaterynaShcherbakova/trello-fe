@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { TaskPriority } from '@/interfaces/task';
 
 const props = defineProps({
@@ -47,7 +47,14 @@ const props = defineProps({
 const emit = defineEmits(['update:visible', 'submit']);
 const priorityOptions = Object.values(TaskPriority);
 const formData = ref({ ...props.initialData });
-const isFormValid = ref(false);
+
+watch(
+    () => props.initialData,
+    (newData) => {
+        formData.value = { ...newData }; // Update formData dynamically
+    },
+    { immediate: true }
+);
 
 const rules = {
     required: (value: string) => !!value || 'Title is required',
@@ -59,9 +66,9 @@ const onVisibilityChange = (value: boolean) => {
 
 const onCancel = () => {
     emit('update:visible', false);
-    resetForm();
 };
 
+const isFormValid = ref(false);
 const onSubmit = () => {
     if (isFormValid.value) {
         emit('submit', formData.value);

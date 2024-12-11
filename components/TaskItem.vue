@@ -6,13 +6,10 @@
             <v-btn small @click="onEdit">Edit</v-btn>
             <v-btn small color="error" @click="onDelete">Delete</v-btn>
         </v-card-actions>
-
     </v-card>
 </template>
 
 <script setup lang="ts">
-import { useTaskStore } from '@/store/tasks';
-
 const props = defineProps({
     task: {
         type: Object,
@@ -20,11 +17,10 @@ const props = defineProps({
     },
 });
 
-const store = useTaskStore();
+const emit = defineEmits(['edit']);
 
 const onEdit = () => {
-    // Open edit form (implement modal logic)
-    console.log('Edit task:', props.task.id);
+    emit('edit', props.task); // Emit the task to the parent for editing
 };
 
 const onDelete = () => {
