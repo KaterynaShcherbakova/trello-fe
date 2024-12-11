@@ -36,7 +36,7 @@ const initialTaskData = ref({
     description: '',
     assignee: '',
     performers: [],
-    status: TaskStatus.TODO,
+    status: props.status,
     priority: TaskPriority.MEDIUM,
 });
 
@@ -60,12 +60,10 @@ const onEditTask = (task) => {
 
 const onSubmitTask = (taskData) => {
     if (currentTask.value) {
+        console.log(taskData);
         store.editTask(currentTask.value.id, taskData);
     } else {
-        store.addTask({
-            ...taskData,
-            status: props.status,
-        });
+        store.addTask({...taskData});
     }
     isModalVisible.value = false; 
 };

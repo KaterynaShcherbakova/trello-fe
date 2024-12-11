@@ -7,8 +7,8 @@
                     <v-text-field v-model="formData.title" label="Title" :rules="[rules.required]" required />
                     <v-textarea v-model="formData.description" label="Description" rows="3" />
                     <v-text-field v-model="formData.assignee" label="Assignee" :rules="[rules.required]" required />
-                    <v-combobox v-model="formData.performers" :items="availablePerformers" label="Performers"
-                        multiple :rules="[rules.required]" required />
+                    <v-combobox v-model="formData.performers" :items="availablePerformers" label="Performers" multiple
+                        :rules="[rules.requiredArray]" required />
                     <v-select v-model="formData.status" :items="statusOptions" label="Status" :rules="[rules.required]"
                         required />
                     <v-select v-model="formData.priority" :items="priorityOptions" label="Priority" />
@@ -68,7 +68,9 @@ watch(
 );
 
 const rules = {
-    required: (value: string) => !!value || 'Title is required',
+    required: (value: string) => !!value || 'Field is required.',
+    requiredArray: (value: string[]) => value.length > 0 || 'Array can not be empty.',
+
 };
 
 const onVisibilityChange = (value: boolean) => {
