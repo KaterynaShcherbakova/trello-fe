@@ -10,14 +10,9 @@
             <v-btn @click="onOpenAddModal" color="primary" block>Add Task</v-btn>
         </v-card-actions>
 
-        <TaskModal
-            :visible="isModalVisible"
-            @update:visible="isModalVisible = $event"
-            :title="currentTask ? 'Edit Task' : 'Add Task'"
-            :submitButtonText="currentTask ? 'Save Changes' : 'Create'"
-            :initialData="currentTask || { title: '', description: '', priority: 'Medium' }"
-            @submit="onSubmitTask"
-        />
+        <TaskModal :visible="isModalVisible" @update:visible="isModalVisible = $event"
+            :title="currentTask ? 'Edit Task' : 'Add Task'" :submitButtonText="currentTask ? 'Save Changes' : 'Create'"
+            :initialData="currentTask || { title: '', description: '', priority: 'Medium' }" @submit="onSubmitTask" />
     </v-card>
 </template>
 
@@ -40,32 +35,27 @@ const filteredTasks = computed(() =>
 );
 
 const isModalVisible = ref(false);
-const currentTask = ref(null); // Track the current task for add/edit
+const currentTask = ref(null);
 
-// Open modal for adding a task
 const onOpenAddModal = () => {
-    currentTask.value = null; // Reset currentTask for adding
+    currentTask.value = null;
     isModalVisible.value = true;
 };
 
-// Open modal for editing a task
 const onEditTask = (task) => {
-    currentTask.value = { ...task }; // Set the task data for editing
+    currentTask.value = { ...task };
     isModalVisible.value = true;
 };
 
-// Handle task submission
 const onSubmitTask = (taskData) => {
     if (currentTask.value) {
-        // Edit existing task
         store.editTask(currentTask.value.id, taskData);
     } else {
-        // Add new task
         store.addTask({
             ...taskData,
             status: props.status,
         });
     }
-    isModalVisible.value = false; // Close modal
+    isModalVisible.value = false; 
 };
 </script>

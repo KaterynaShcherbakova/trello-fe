@@ -20,7 +20,7 @@ const props = defineProps({
 const emit = defineEmits(['edit']);
 
 const onEdit = () => {
-    emit('edit', props.task); // Emit the task to the parent for editing
+    emit('edit', props.task);
 };
 
 const onDelete = () => {
