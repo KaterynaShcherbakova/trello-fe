@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <h1 class="text-h3">Dashboard</h1>
+    <h1 class="text-h3">Task Tracker</h1>
     <v-container fluid>
       <v-row>
         <v-col cols="12" md="4">
