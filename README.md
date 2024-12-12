@@ -82,8 +82,8 @@ yarn preview
 bun run preview
 ```
 
-Docs links:
-**Nuxt 3**:`https://nuxt.com/docs/getting-started/introduction`
-**Vue 3**: `https://vuejs.org/`
-**Vuetify 3**: `https://vuetifyjs.com/en/`
-**Pinia**: `https://pinia.vuejs.org/`
+## Docs links:
+- **Nuxt 3**:`https://nuxt.com/docs/getting-started/introduction`
+- **Vue 3**: `https://vuejs.org/`
+- **Vuetify 3**: `https://vuetifyjs.com/en/`
+- **Pinia**: `https://pinia.vuejs.org/`
