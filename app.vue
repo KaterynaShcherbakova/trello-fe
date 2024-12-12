@@ -22,3 +22,9 @@ import TaskColumn from '@/components/TaskColumn.vue';
 import { TaskStatus } from '@/interfaces/task';
 
 </script>
+
+<style>
+.text-h3 {
+  margin: 24px;
+}
+</style>

@@ -1,10 +1,10 @@
 <template>
-    <v-card class="dropzone" @dragover="onDragOver" @drop="onDrop">
+    <v-card class="dropzone bg-grey-lighten-4" @dragover="onDragOver" @drop="onDrop">
         <v-card-title class="text-center justify-center">{{ status }}</v-card-title>
         <v-card-text>
             <div v-for="task in filteredTasks" :key="task.id" class="draggable-task" draggable="true"
                 @dragstart="onDragStart(task)" @dragend="onDragEnd">
-                <TaskItem :task="task" @edit="onEditTask" />
+                <TaskItem :task="task" @edit="onEditTask" :class="getPriorityClass(task.priority)" />
             </div>
         </v-card-text>
         <v-card-actions>
@@ -13,7 +13,7 @@
 
         <TaskModal :visible="isModalVisible" @update:visible="isModalVisible = $event"
             :title="currentTask ? 'Edit Task' : 'Add Task'" :submitButtonText="currentTask ? 'Save Changes' : 'Create'"
-            :initialData="currentTask || initialTaskData" @submit="onSubmitTask" />
+            :initialData="currentTask || initialTask" @submit="onSubmitTask" />
     </v-card>
 </template>
 
@@ -34,7 +34,7 @@ const props = defineProps({
     },
 });
 
-const initialTaskData = ref({
+const initialTask = ref<Task>({
     title: '',
     description: '',
     assignee: '',
@@ -54,23 +54,22 @@ const onOpenAddModal = () => {
     isModalVisible.value = true;
 };
 
-const onEditTask = (task) => {
+const onEditTask = (task: Task) => {
     currentTask.value = { ...task };
     isModalVisible.value = true;
 };
 
-const onSubmitTask = (taskData) => {
+const onSubmitTask = (task: Task) => {
     if (currentTask.value) {
-        console.log(taskData);
-        store.editTask(currentTask.value.id, taskData);
+        store.editTask(currentTask.value.id, task);
     } else {
-        store.addTask({ ...taskData });
+        store.addTask({ ...task });
     }
     isModalVisible.value = false;
 };
 
 
-const onDragStart = (task) => {
+const onDragStart = (task: Task) => {
     draggedTask.value = task;
 };
 
@@ -88,25 +87,42 @@ const onDrop = () => {
 const onDragEnd = () => {
     draggedTask.value = null;
 };
+
+const getPriorityClass = (priority: TaskPriority) => {
+    switch (priority) {
+        case TaskPriority.HIGH:
+            return 'priority-high';
+        case TaskPriority.MEDIUM:
+            return 'priority-medium';
+        case TaskPriority.LOW:
+            return 'priority-low';
+        default:
+            return '';
+    }
+};
 </script>
 
 <style>
-.dropzone {
-    min-height: 150px;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    padding: 10px;
-    background-color: #f9f9f9;
-    transition: background-color 0.2s;
-}
-
 .draggable-task {
     cursor: grab;
     margin-bottom: 8px;
     transition: transform 0.2s ease, opacity 0.2s ease;
+    border-top-left-radius: 0px !important;
 }
 
 .draggable-task:active {
     cursor: grabbing;
+}
+
+.priority-high {
+    border-left: 5px solid rgb(215, 104, 104);
+}
+
+.priority-medium {
+    border-left: 5px solid rgb(240, 188, 90);
+}
+
+.priority-low {
+    border-left: 5px solid rgb(78, 140, 78);
 }
 </style>

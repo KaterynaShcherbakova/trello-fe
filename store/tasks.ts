@@ -18,7 +18,7 @@ export const useTaskStore = defineStore('tasks', {
             this.tasks.push(newTask);
         },
         editTask(taskId: number, updatedTask: Partial<Task>) {
-            const index = this.tasks.findIndex((task) => task.id === taskId);
+            const index = this.tasks.findIndex((task: Task) => task.id === taskId);
             if (index !== -1) {
                 this.tasks[index] = {
                     ...this.tasks[index],
@@ -29,7 +29,7 @@ export const useTaskStore = defineStore('tasks', {
             }
         },
         deleteTask(taskId: number) {
-            this.tasks = this.tasks.filter((task) => task.id !== taskId);
+            this.tasks = this.tasks.filter((task: Task) => task.id !== taskId);
         },
     },
 });

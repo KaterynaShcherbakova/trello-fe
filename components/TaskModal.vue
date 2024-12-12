@@ -45,7 +45,7 @@ const props = defineProps({
             assignee: '',
             performers: [],
             status: TaskStatus.TODO,
-            priority: 'Medium',
+            priority: TaskPriority.MEDIUM,
         }),
     },
     submitButtonText: {
@@ -57,10 +57,12 @@ const props = defineProps({
 const emit = defineEmits(['update:visible', 'submit']);
 const priorityOptions = Object.values(TaskPriority);
 const statusOptions = Object.values(TaskStatus);
-const availablePerformers = ['John Doe', 'Jane Smith', 'Bob Johnson'];
-const availableAssignees = ['John Doe', 'Jane Smith', 'Alice Johnson'];
+
+const availablePerformers = ['Maria Shevchenko', 'Anna Malar', 'Daniel Coch', 'Borys Boyko'];
+const availableAssignees = ['Maria Shevchenko', 'Anna Malar', 'Daniel Coch'];
 
 const formData = ref({ ...props.initialData });
+const isFormValid = ref<boolea>(false);
 
 watch(
     () => props.initialData,
@@ -84,7 +86,6 @@ const onCancel = () => {
     emit('update:visible', false);
 };
 
-const isFormValid = ref(false);
 const onSubmit = () => {
     if (isFormValid.value) {
         emit('submit', formData.value);

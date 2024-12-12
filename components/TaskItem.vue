@@ -1,22 +1,23 @@
 <template>
-    <div draggable="true">
-        <v-card class="mb-2">
-            <v-card-title>{{ task.title }}</v-card-title>
-            <v-card-subtitle v-if="task.description">{{ task.description }}</v-card-subtitle>
-            <v-card-text>
-                <div>Assignee: {{ task.assignee }}</div>
-                <div>Performers: {{ task.performers.join(', ') }}</div>
-                <div>Priority: {{ task.priority }}</div>
-            </v-card-text>
-            <v-card-actions class="d-flex justify-space-around">
-                <v-btn small @click="onEdit">Edit</v-btn>
-                <v-btn small color="error" @click="onDelete">Delete</v-btn>
-            </v-card-actions>
-        </v-card>
-    </div>
+    <v-card class="mb-2">
+        <v-card-title>{{ task.title }}</v-card-title>
+        <v-card-subtitle v-if="task.description">{{ task.description }}</v-card-subtitle>
+        <v-card-text>
+            <div>Assignee: {{ task.assignee }}</div>
+            <div>Performers: {{ task.performers.join(', ') }}</div>
+            <div>Priority: {{ task.priority }}</div>
+        </v-card-text>
+        <v-card-actions class="d-flex justify-space-around">
+            <v-btn small @click="onEdit">Edit</v-btn>
+            <v-btn small color="error" @click="onDelete">Delete</v-btn>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script setup lang="ts">
+import { TaskPriority } from '@/interfaces/task';
+import { useTaskStore } from '@/store/tasks';
+
 const props = defineProps({
     task: {
         type: Object,
@@ -25,6 +26,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['edit']);
+const store = useTaskStore();
 
 const onEdit = () => {
     emit('edit', props.task);
@@ -33,4 +35,6 @@ const onEdit = () => {
 const onDelete = () => {
     store.deleteTask(props.task.id);
 };
+
+
 </script>

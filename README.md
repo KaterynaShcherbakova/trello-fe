@@ -1,6 +1,16 @@
-# Nuxt Minimal Starter
+# Task Management App
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A task management application built using **Nuxt 3**, **Vue 3**, **Vuetify 3**, and **Pinia**. This app allows users to organize tasks into columns based on their status (e.g., TODO, In Progress, Done), drag and drop tasks between columns, and manage task details such as priority, assignees, and more.
+
+## Project Features
+
+- **Dynamic Task Management**: Add, edit, delete, and move tasks between columns.
+- **Drag-and-Drop**: Intuitive task reorganization using drag-and-drop functionality.
+- **Task Prioritization**: Assign priorities (High, Medium, Low) with visual indicators.
+- **State Management**: Powered by Pinia for efficient state handling.
+- **Custom Styling**: Designed with Vuetify 3 for a modern and clean UI.
+
+---
 
 ## Setup
 
@@ -72,4 +82,8 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Docs links:
+**Nuxt 3**:`https://nuxt.com/docs/getting-started/introduction`
+**Vue 3**: `https://vuejs.org/`
+**Vuetify 3**: `https://vuetifyjs.com/en/`
+**Pinia**: `https://pinia.vuejs.org/`
