@@ -20,7 +20,6 @@
 <script setup>
 import TaskColumn from '@/components/TaskColumn.vue';
 import { TaskStatus } from '@/interfaces/task';
-
 </script>
 
 <style>
